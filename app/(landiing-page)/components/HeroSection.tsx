@@ -1,5 +1,7 @@
+"use client";
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Play, Youtube, Clock, Share2, Mountain } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -47,26 +49,6 @@ export default function HeroSection() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  const handlePrev = () => {
-    setAnimated(false);
-    setIsBlurring(true);
-    setTimeout(() => {
-      setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-      setIsBlurring(false);
-      setAnimated(true);
-    }, 500);
-  };
-
-  const handleNext = () => {
-    setAnimated(false);
-    setIsBlurring(true);
-    setTimeout(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-      setIsBlurring(false);
-      setAnimated(true);
-    }, 500);
-  };
-
   const carouselPrev = () => {
     const carousel = document.getElementById('carousel');
     carousel?.scrollBy({ left: -300, behavior: 'smooth' });
@@ -77,84 +59,29 @@ export default function HeroSection() {
     carousel?.scrollBy({ left: 300, behavior: 'smooth' });
   };
 
+  // Animation Variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
+  const cardSlideUp = {
+    hidden: { opacity: 0, y: 100 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
   return (
     <div className="w-full">
-      <style>{`
-        @keyframes slideInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slideInDown {
-          from {
-            opacity: 0;
-            transform: translateY(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes pulse-glow {
-          0%, 100% {
-            box-shadow: 0 0 20px rgba(13, 148, 136, 0.5);
-          }
-          50% {
-            box-shadow: 0 0 30px rgba(13, 148, 136, 0.8);
-          }
-        }
-
-        .animate-slide-in-up {
-          animation: slideInUp 0.8s ease-out forwards;
-        }
-
-        .animate-slide-in-down {
-          animation: slideInDown 0.8s ease-out forwards;
-        }
-
-        .animate-fade-in {
-          animation: fadeIn 1s ease-out forwards;
-        }
-
-        .animate-pulse-glow {
-          animation: pulse-glow 2s ease-in-out infinite;
-        }
-
-        .carousel-scroll::-webkit-scrollbar {
-          height: 4px;
-        }
-
-        .carousel-scroll::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 10px;
-        }
-
-        .carousel-scroll::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.4);
-          border-radius: 10px;
-        }
-
-        .carousel-scroll::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.6);
-        }
-      `}</style>
-
       {/* Hero Section */}
       <div className="relative w-full lg:h-screen h-[85vh] overflow-hidden">
         {/* Background Image Container */}
@@ -174,26 +101,32 @@ export default function HeroSection() {
         {/* Content */}
         <div className="relative h-full flex flex-col items-center justify-end lg:justify-center pb-24 sm:pb-32 lg:pb-0 px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h1
-              className={`text-2xl sm:text-6xl lg:text-7xl font-semibold text-white lg:mb-6 leading-tight tracking-tight ${animated ? 'animate-slide-in-down' : ''
-                }`}
+            <motion.h1
+              key={`title-${currentSlide}`}
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-2xl sm:text-6xl lg:text-7xl font-semibold text-white lg:mb-6 leading-tight tracking-tight"
             >
               {slides[currentSlide].title}
-            </h1>
-            <p
-              className={`text-2xl sm:text-2xl lg:text-3xl text-gray-200 font-semibold ${animated ? 'animate-slide-in-up' : ''
-                }`}
-              style={{ animationDelay: '0.2s' }}
+            </motion.h1>
+            <motion.p
+              key={`subtitle-${currentSlide}`}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-2xl sm:text-2xl lg:text-3xl text-gray-200 font-semibold"
             >
               {slides[currentSlide].subtitle}
-            </p>
+            </motion.p>
           </div>
 
           {/* CTA Buttons */}
-          <div
-            className={`flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center ${animated ? 'animate-slide-in-up' : ''
-              }`}
-            style={{ animationDelay: '0.4s' }}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center"
           >
             <button className="px-8 py-4 bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm sm:text-base transition duration-300 uppercase tracking-wider rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105">
               New Here?
@@ -201,7 +134,7 @@ export default function HeroSection() {
             <button className="px-8 py-4 bg-white hover:bg-gray-100 text-gray-900 font-bold text-sm sm:text-base transition duration-300 uppercase tracking-wider rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105">
               How We Care
             </button>
-          </div>
+          </motion.div>
         </div>
 
         {/* Slide Indicators */}
@@ -248,15 +181,27 @@ export default function HeroSection() {
 
         <div className="relative max-w-7xl mx-auto z-10">
           {/* Section Title */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 animate-slide-in-down">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">
               Explore Our Ministries
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-teal-500 to-teal-700 mx-auto rounded-full" />
-          </div>
+          </motion.div>
 
           {/* Carousel Container */}
-          <div className="relative">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
             {/* Previous Button */}
             <button
               onClick={carouselPrev}
@@ -282,10 +227,6 @@ export default function HeroSection() {
                 <div
                   key={index}
                   className="flex-shrink-0 group cursor-pointer"
-                  style={{
-                    animation: `slideInUp 0.6s ease-out forwards`,
-                    animationDelay: `${index * 0.1}s`
-                  }}
                 >
                   <div className="relative w-40 sm:w-48 h-40 sm:h-48 rounded-2xl overflow-hidden snap-center">
                     <div
@@ -303,20 +244,32 @@ export default function HeroSection() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Service Times Section */}
       <div className="relative z-10 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl text-center sm:text-5xl font-black text-white mb-12 animate-slide-in-down tracking-tight">
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-4xl text-center sm:text-5xl font-black text-white mb-12 tracking-tight"
+          >
             Service Times
-          </h2>
+          </motion.h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }} // Trigger when 20% of the grid is visible
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
             {/* ORIGINAL CAMPUS - MILNER */}
-            <div className="relative group">
+            <motion.div variants={cardSlideUp} className="relative group">
               <div className="absolute inset-0 bg-black/30 backdrop-blur-sm transform transition-transform duration-300 group-hover:-translate-y-2" />
               <div className="relative p-8 h-full flex flex-col transform transition-transform duration-300 group-hover:-translate-y-2 border-l-4 border-transparent group-hover:border-teal-500">
                 <h3 className="text-lg font-light text-white mb-6 uppercase tracking-wider">Sunday Service</h3>
@@ -347,10 +300,10 @@ export default function HeroSection() {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* MACON CAMPUS */}
-            <div className="relative group">
+            <motion.div variants={cardSlideUp} className="relative group">
               <div className="absolute inset-0 bg-black/30 backdrop-blur-sm transform transition-transform duration-300 group-hover:-translate-y-2" />
               <div className="relative p-8 h-full flex flex-col transform transition-transform duration-300 group-hover:-translate-y-2 border-l-4 border-transparent group-hover:border-teal-500">
                 <h3 className="text-lg font-light text-white mb-6 uppercase tracking-wider">Midweek Service</h3>
@@ -380,10 +333,10 @@ export default function HeroSection() {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* BRANCH CAMPUS */}
-            <div className="relative group">
+            <motion.div variants={cardSlideUp} className="relative group">
               <div className="absolute inset-0 bg-black/30 backdrop-blur-sm transform transition-transform duration-300 group-hover:-translate-y-2" />
               <div className="relative p-8 h-full flex flex-col transform transition-transform duration-300 group-hover:-translate-y-2 border-l-4 border-transparent group-hover:border-teal-500">
                 <h3 className="text-lg font-light text-white mb-6 uppercase tracking-wider">Monthly</h3>
@@ -414,10 +367,10 @@ export default function HeroSection() {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* ONLINE CAMPUS */}
-            <div className="relative group">
+            <motion.div variants={cardSlideUp} className="relative group">
               <div className="absolute inset-0 bg-black/30 backdrop-blur-sm transform transition-transform duration-300 group-hover:-translate-y-2" />
               <div className="relative p-8 h-full flex flex-col transform transition-transform duration-300 group-hover:-translate-y-2 border-l-4 border-transparent group-hover:border-teal-500">
                 <h3 className="text-lg font-light text-white mb-6 uppercase tracking-wider">Online Campus</h3>
@@ -439,15 +392,22 @@ export default function HeroSection() {
                   </button>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
+
       <div className="relative z-10 py-12 pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
-            <div className="space-y-8 animate-slide-in-up">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="space-y-8"
+            >
               <div>
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-2 tracking-tight">
                   LATEST
@@ -469,10 +429,16 @@ export default function HeroSection() {
               <button className="bg-white text-black px-10 py-4 font-bold text-sm tracking-[0.2em] hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-white/10 mt-4">
                 WATCH MORE
               </button>
-            </div>
+            </motion.div>
 
             {/* Right Video Card */}
-            <div className="w-full animate-slide-in-up" style={{ animationDelay: '0.2s' }}>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="w-full"
+            >
               <div className="relative aspect-video group cursor-pointer overflow-hidden shadow-2xl shadow-black/50">
                 {/* Thumbnail Image */}
                 <div
@@ -531,7 +497,7 @@ export default function HeroSection() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
