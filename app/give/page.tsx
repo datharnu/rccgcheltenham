@@ -49,12 +49,12 @@ export default function GivePage() {
                     <h2 className="text-3xl font-bold text-gray-900 mb-6">Supporting Our Church</h2>
                     <p className="text-gray-600 mb-8 leading-relaxed">
                         There are many ways you can support Conqueror Assembly. Your contributions of time, talents,
-                        and financial resources are essential for advancing the church's mission and sustaining its operation.
+                        and financial resources are essential for advancing the church&apos;s mission and sustaining its operation.
                         We deeply appreciate your generous support toward our God-inspired vision in Cheltenham.
                     </p>
                     <blockquote className="border-l-4 border-[#0ea5a4] pl-6 py-2 bg-gray-50 italic text-gray-700 text-lg">
-                        "Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion,
-                        for God loves a cheerful giver."
+                        &quot;Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion,
+                        for God loves a cheerful giver.&quot;
                         <footer className="text-gray-500 text-sm font-semibold mt-2">– 2 Corinthians 9:7</footer>
                     </blockquote>
                 </motion.div>
@@ -193,7 +193,7 @@ export default function GivePage() {
                             className="object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
-                            <p className="text-white font-medium text-lg">"Your generosity changes lives."</p>
+                            <p className="text-white font-medium text-lg">&quot;Your generosity changes lives.&quot;</p>
                         </div>
                     </div>
                 </motion.div>

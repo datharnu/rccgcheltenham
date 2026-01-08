@@ -50,7 +50,7 @@ export default function IAmNewPage() {
                 >
                     <div className="space-y-4">
                         <p className="text-xl md:text-2xl font-semibold italic text-gray-800">
-                            "For as the body is one, and hath many members, and all the members of that one body, being many, are one body: so also is Christ."
+                            &quot;For as the body is one, and hath many members, and all the members of that one body, being many, are one body: so also is Christ.&quot;
                         </p>
                         <p className="font-bold text-gray-600">– Corinthians 12:12 (KJV)</p>
                     </div>

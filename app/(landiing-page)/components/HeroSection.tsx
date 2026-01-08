@@ -490,7 +490,7 @@ export default function HeroSection() {
                     <div className="bg-white/20 p-1.5 rounded-full backdrop-blur-sm">
                       <Mountain size={16} />
                     </div>
-                    <span className="text-sm font-medium drop-shadow-md">Let's Start Exercising in 2026 | 1.4.2026 | 11:00 AM</span>
+                    <span className="text-sm font-medium drop-shadow-md">Let&apos;s Start Exercising in 2026 | 1.4.2026 | 11:00 AM</span>
                   </div>
                   <div className="flex gap-4 text-white/90">
                     <div className="flex flex-col items-center gap-1">
@@ -514,7 +514,7 @@ export default function HeroSection() {
 
                   {/* Big Text Overlay similar to screenshot */}
                   <div className="absolute right-8 top-1/2 -translate-y-1/2 text-right hidden lg:block pointer-events-none">
-                    <h3 className="text-4xl font-thin text-white/20 leading-none">LET'S START</h3>
+                    <h3 className="text-4xl font-thin text-white/20 leading-none">LET&apos;S START</h3>
                     <h3 className="text-6xl font-black text-white/90 leading-none tracking-tighter mix-blend-overlay">EXERCISING</h3>
                     <h3 className="text-4xl font-thin text-white/40 leading-none">IN 2026</h3>
                   </div>

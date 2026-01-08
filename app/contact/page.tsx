@@ -122,7 +122,7 @@ export default function ContactPage() {
                             <div>
                                 <h3 className="text-2xl font-bold mb-4">Send a Message</h3>
                                 <p className="opacity-90 leading-relaxed">
-                                    Have a prayer request, question, or just want to say hello? We'd love to hear from you.
+                                    Have a prayer request, question, or just want to say hello? We&apos;d love to hear from you.
                                 </p>
                             </div>
                             <div className="mt-8">

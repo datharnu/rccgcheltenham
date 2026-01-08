@@ -153,9 +153,7 @@ export default function AboutPage() {
                             </div>
 
                             <div className="bg-white p-6 rounded-xl border-l-4 border-[#0ea5a4] shadow-sm mb-6">
-                                <p className="italic text-gray-600">
-                                    "As received by the General Overseer (G.O.), Pastor E. A. Adeboye... our vision and mission statement shall remain intact, with a qualifying addendum..."
-                                </p>
+                                &quot;As received by the General Overseer (G.O.), Pastor E. A. Adeboye... our vision and mission statement shall remain intact, with a qualifying addendum...&quot;
                             </div>
 
                             <ul className="space-y-4">
