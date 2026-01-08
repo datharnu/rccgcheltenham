@@ -1,14 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { div } from "framer-motion/client";
-import LandingPage from "./(landiing-page)/page";
+import Navbar from "@/components/shared/Navbar";
+import HeroSection from "./(landiing-page)/components/HeroSection";
 
 export default function Home() {
   return (
-<div>
-  <LandingPage />
-</div>
+    <div className=''>
+      <Navbar />
+      <HeroSection />
+    </div>
   );
 }
-
